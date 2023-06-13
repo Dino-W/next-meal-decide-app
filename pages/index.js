@@ -85,94 +85,6 @@ const data = [
   },
 ];
 
-export default () => {
-  const [mustSpin, setMustSpin] = useState(false);
-  const [prizeNumber, setPrizeNumber] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(data[0].category);
-  const [wheelData, setWheelData] = useState(
-    data[0].items.map((item) => ({ option: item }))
-  );
-  const [showResult, setShowResult] = useState(false);
-  const [result, setResult] = useState("");
-  const [currentDataIndex, setCurrentDataIndex] = useState(0);
-  const [currentData, setCurrentData] = useState("");
-
-  const handleSpinClick = () => {
-    if (!mustSpin) {
-      const newPrizeNumber = Math.floor(Math.random() * wheelData.length);
-      setPrizeNumber(newPrizeNumber);
-      setMustSpin(true);
-      setShowResult(false);
-    }
-  };
-
-  const handleStopSpinning = () => {
-    setShowResult(true);
-    setResult(wheelData[prizeNumber].option);
-    setMustSpin(false);
-  };
-
-  useEffect(() => {
-    let intervalId;
-    if (mustSpin) {
-      intervalId = setInterval(() => {
-        setCurrentDataIndex((prevIndex) => {
-          const newIndex = Math.floor(Math.random() * wheelData.length);
-          return newIndex !== prevIndex ? newIndex : prevIndex;
-        });
-      }, 100);
-    } else {
-      clearInterval(intervalId);
-      setCurrentData(wheelData[prizeNumber].option);
-    }
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [mustSpin, wheelData, prizeNumber]);
-
-  return (
-    <div className={styles.container}>
-      <select
-        className={styles.selectMenu}
-        value={selectedCategory}
-        onChange={(event) => {
-          const category = event.target.value;
-          setSelectedCategory(category);
-          const newWheelData = data
-            .find((d) => d.category === category)
-            .items.map((item) => ({ option: item }));
-          setWheelData(newWheelData);
-        }}
-      >
-        {data.map((d, index) => (
-          <option key={index} value={d.category}>
-            {d.category}
-          </option>
-        ))}
-      </select>
-      <Wheel
-        mustStartSpinning={mustSpin}
-        prizeNumber={prizeNumber}
-        data={wheelData}
-        onStopSpinning={handleStopSpinning}
-        backgroundColors={["#40E0D0", "#00BFFF", "#FFD700", "#FFA500"]}
-        fontFamily="Bebas Neue"
-        textColors={["#00008B"]}
-        radiusLineColor="#ccc"
-        outerBorderColor="#ccc"
-        outlineWidth={2}
-        spinDuration={0.2}
-      />
-      <button className={styles.spinButton} onClick={handleSpinClick}>
-        SPIN
-      </button>
-      <div className={styles.currentData}>
-        {mustSpin ? wheelData[currentDataIndex].option : currentData}
-      </div>
-    </div>
-  );
-};
-
 // export default () => {
 //   const [mustSpin, setMustSpin] = useState(false);
 //   const [prizeNumber, setPrizeNumber] = useState(0);
@@ -232,3 +144,72 @@ export default () => {
 //     </div>
 //   );
 // };
+export default () => {
+  const [mustSpin, setMustSpin] = useState(false);
+  const [prizeNumber, setPrizeNumber] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(data[0].category);
+  const [wheelData, setWheelData] = useState(
+    data[0].items.map((item) => ({ option: item }))
+  );
+  const [showResult, setShowResult] = useState(false);
+
+  const handleSpinClick = () => {
+    if (!mustSpin) {
+      const newPrizeNumber = Math.floor(Math.random() * wheelData.length);
+      setPrizeNumber(newPrizeNumber);
+      setMustSpin(true);
+      setShowResult(false);
+    }
+  };
+
+  const handleCategoryChange = (event) => {
+    const category = event.target.value;
+    setSelectedCategory(category);
+    const newWheelData = data
+      .find((d) => d.category === category)
+      .items.map((item) => ({ option: item }));
+    setWheelData(newWheelData);
+  };
+
+  const handleStopSpinning = () => {
+    setShowResult(true);
+    setMustSpin(false);
+  };
+
+  return (
+    <div className={styles.container}>
+      <select
+        className={styles.selectMenu}
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+      >
+        {data.map((d, index) => (
+          <option key={index} value={d.category}>
+            {d.category}
+          </option>
+        ))}
+      </select>
+      <Wheel
+        mustStartSpinning={mustSpin}
+        prizeNumber={prizeNumber}
+        data={wheelData}
+        onStopSpinning={handleStopSpinning}
+        backgroundColors={["#40E0D0", "#00BFFF", "#FFD700", "#FFA500"]}
+        fontFamily="Bebas Neue"
+        textColors={["#00008B"]}
+        radiusLineColor="#ccc"
+        outerBorderColor="#ccc"
+        outlineWidth={2}
+        spinDuration={0.2}
+      />
+      <button className={styles.spinButton} onClick={handleSpinClick}>
+        SPIN
+      </button>
+      {showResult && (
+        <div className={styles.currentData}>
+          {wheelData[prizeNumber].option}
+        </div>
+      )}
+    </div>
+  );
+};
