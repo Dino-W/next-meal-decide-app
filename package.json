@@ -1,20 +1,25 @@
 {
-  "name": "meal-app",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 8080",
     "build": "next build",
-    "start": "next start -p 8080",
-    "lint": "next lint"
+    "start": "next start -p 8080"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.14",
+    "@mui/material": "^5.14.14",
+    "@mui/x-data-grid": "^6.16.3",
+    "@types/node": "^20.4.7",
+    "@types/react": "^18.2.18",
+    "@types/react-dom": "^18.2.7",
     "mongoose": "^7.4.2",
-    "next": "13.4.5",
-    "react": "18.2.0",
+    "next": "latest",
+    "react": "^18.2.0",
     "react-custom-roulette": "^1.4.1",
-    "react-dom": "18.2.0",
-    "react-roulette": "^0.0.1"
+    "react-dom": "^18.2.0",
+    "swr": "^2.2.0",
+    "typescript": "^5.1.6"
   }
 }
