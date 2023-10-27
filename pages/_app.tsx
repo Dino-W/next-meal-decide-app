@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import type { AppProps } from "next/app";
 import DataSaverOnSharpIcon from "@mui/icons-material/DataSaverOnSharp";
+import FormDialog from "../components/notify";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,13 +16,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <div className="top-bar">
         <div className="nav">
+          <FormDialog />
           <Link href="/new">
             <DataSaverOnSharpIcon style={{ fontSize: 50, color: "#1E90FF" }} />
           </Link>
         </div>
-
         <Link href="/">
-          <img id="title" src="/roulette1.png" alt="pet care logo" />
+          <img id="title" src="/roulette1.png" alt="roulette logo" />
         </Link>
       </div>
       <div className="wrapper grid">

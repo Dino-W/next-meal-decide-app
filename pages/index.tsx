@@ -6,6 +6,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import dynamic from "next/dynamic";
 import EnhancedTable from "./enhancedTable";
 import CustomSnackbar from "../components/snackbar";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
 
 const Wheel = dynamic(
   () => import("react-custom-roulette").then((mod) => mod.Wheel),
@@ -118,11 +122,11 @@ const Index = ({ initialShops }: Props) => {
       setSnackbarOpen(true);
       sessionStorage.removeItem("postSnackbar");
     }
-    if (sessionStorage.getItem("deleteSnackbar") === "true") {
-      setSnackbarMessage("刪除成功");
+    if (sessionStorage.getItem("sendSnackbar") === "true") {
+      setSnackbarMessage("訊息傳送成功!");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
-      sessionStorage.removeItem("deleteSnackbar");
+      sessionStorage.removeItem("sendSnackbar");
     }
     if (sessionStorage.getItem("failSnackbar") === "true") {
       setSnackbarMessage("操作有誤, 請重新操作");
@@ -141,7 +145,7 @@ const Index = ({ initialShops }: Props) => {
   return (
     <>
       <div className="select-container">
-        <select
+        {/* <select
           onChange={(e) => {
             setSelectedRegion(e.target.value);
             setSelectedCategory(""); // 重設選定的類別，當地區發生變化
@@ -169,7 +173,53 @@ const Index = ({ initialShops }: Props) => {
             ))}
           </select>
         )}
-        <br />
+        <br /> */}
+        <FormControl
+          variant="filled"
+          sx={{ m: 1, minWidth: 100 }}
+          className="SelectFormControl"
+        >
+          <InputLabel id="region-select-label">選擇地區</InputLabel>
+          <Select
+            labelId="region-select-label"
+            id="region-select"
+            value={selectedRegion}
+            onChange={(e) => {
+              setSelectedRegion(e.target.value);
+              setSelectedCategory("");
+            }}
+            className="SelectControl"
+          >
+            {uniqueRegions.map((region, index) => (
+              <MenuItem key={index} value={region}>
+                {region}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {selectedRegion && (
+          <FormControl
+            variant="filled"
+            sx={{ m: 1, minWidth: 100 }}
+            className="SelectFormControl"
+          >
+            <InputLabel id="category-select-label">選擇類別</InputLabel>
+            <Select
+              labelId="category-select-label"
+              id="category-select"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="SelectControl"
+            >
+              {filteredCategories.map((category, index) => (
+                <MenuItem key={index} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+        <br />{" "}
       </div>
       <div className="main-container">
         <div
@@ -195,7 +245,8 @@ const Index = ({ initialShops }: Props) => {
               prizeNumber={prizeNumber}
               data={wheelData.length > 0 ? wheelData : [{ option: "" }]}
               onStopSpinning={handleStopSpinning}
-              backgroundColors={["#40E0D0", "#00BFFF", "#FFD700", "#FFA500"]}
+              // backgroundColors={["#40E0D0", "#00BFFF", "#FFD700", "#FFA500"]}
+              backgroundColors={["#bbdefb", "#AFEEEE", "#FFFACD", "#FFDDAA"]}
               fontFamily="Bebas Neue"
               textColors={["#00008B"]}
               radiusLineColor="#ccc"

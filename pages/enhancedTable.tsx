@@ -38,7 +38,7 @@ interface EnhancedTableProps {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#77DDFF",
+    backgroundColor: "#bbdefb",
     fontWeight: "bold",
     // color: theme.palette.common.black,
   },
@@ -56,7 +56,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
+const style = {
+  width: 100,
+  maxWidth: 100,
+};
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -240,7 +243,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           id="tableTitle"
           component="div"
         >
-          項目列表
+          {/* 項目列表 */}
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -260,7 +263,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 export default function EnhancedTable({
-  rows,
+  rows = [],
   fetchShops,
   setSnackbar,
 }: EnhancedTableProps) {

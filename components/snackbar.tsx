@@ -3,7 +3,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps as MuiAlertProps } from "@mui/material/Alert";
 
 const Alert = forwardRef<HTMLDivElement, MuiAlertProps>((props, ref) => {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} ref={ref} {...props} />;
 });
 
 interface CustomSnackbarProps {
@@ -28,7 +28,7 @@ export default function CustomSnackbar({
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         open={open}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
         onClose={handleClose}
       >
         <Alert onClose={handleAlertClose} severity={severity}>
