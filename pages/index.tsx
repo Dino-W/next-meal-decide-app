@@ -2,7 +2,6 @@ import dbConnect from "../lib/dbConnect";
 import Shop, { Shops } from "../models/Shop";
 import { GetServerSideProps } from "next";
 import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import dynamic from "next/dynamic";
 import EnhancedTable from "./enhancedTable";
 import CustomSnackbar from "../components/snackbar";
@@ -145,35 +144,6 @@ const Index = ({ initialShops }: Props) => {
   return (
     <>
       <div className="select-container">
-        {/* <select
-          onChange={(e) => {
-            setSelectedRegion(e.target.value);
-            setSelectedCategory(""); // 重設選定的類別，當地區發生變化
-          }}
-          className="selectMenu"
-        >
-          <option value="">選擇地區</option>
-          {uniqueRegions.map((region, index) => (
-            <option key={index} value={region}>
-              {region}
-            </option>
-          ))}
-        </select>
-        <br />
-        {selectedRegion && (
-          <select
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="selectMenu"
-          >
-            <option value="">選擇類別</option>
-            {filteredCategories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        )}
-        <br /> */}
         <FormControl
           variant="filled"
           sx={{ m: 1, minWidth: 100 }}
@@ -245,7 +215,6 @@ const Index = ({ initialShops }: Props) => {
               prizeNumber={prizeNumber}
               data={wheelData.length > 0 ? wheelData : [{ option: "" }]}
               onStopSpinning={handleStopSpinning}
-              // backgroundColors={["#40E0D0", "#00BFFF", "#FFD700", "#FFA500"]}
               backgroundColors={["#bbdefb", "#AFEEEE", "#FFFACD", "#FFDDAA"]}
               fontFamily="Bebas Neue"
               textColors={["#00008B"]}

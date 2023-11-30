@@ -15,14 +15,14 @@
 
 ### 特色介紹:
 
-- [x]可以自由新增項目, 只要依照地區以及類別即可顯示清單
-- [x]喝膩品項看不順眼? 直接勾選讓點選刪除讓他消失在生活中!
-- [x]找菜單很麻煩? 只要新增時有放入參考網址即可馬上連結店家資訊
-- [x]決定好還要通知心很累?一鍵點選輸入相關資訊,BOT 自動幫你發消息到 Telegram 通知開團!
+- [x] 可以自由新增項目, 只要依照地區以及類別即可顯示清單
+- [x] 喝膩品項看不順眼? 直接勾選讓點選刪除讓他消失在生活中!
+- [x] 找菜單很麻煩? 只要新增時有放入參考網址即可馬上連結店家資訊
+- [x] 決定好還要通知心很累?一鍵點選輸入相關資訊,BOT 自動幫你發消息到 Telegram 通知開團!
 
 ## 如何運行本專案
 
-Step.1：將專案複製至本機
+#### Step.1：將專案複製至本機
 
 ```bash
 # 透過 git clone 專案
@@ -39,21 +39,30 @@ cd next-meal-decide-app
 > > [MongoDB](https://www.mongodb.com/docs/manual/installation/)安裝(依照系統需求安裝)  
 > > [NodeJS](https://nodejs.org/en/download/)安裝(依照系統需求安裝,建議安裝 16.x 以上 LTS 版本)
 
-Step.2：安裝專案所需 dependencies 並建置專案
+#### Step.2：安裝專案所需 dependencies 並建置專案
 
 ```bash
 # 安裝dependencies
 npm install
-#設定環境變數
-MONGODB_URI = #MongoDB連線字串,可以自己選擇要用哪個DB(沒有的話會自動創建一個)
-#如果只是單純需要輪盤不需要通知也可以不設定這兩個變數, 不要使用通知功能即可
-TELEGRAM_TOKEN = #TG BOT TOKEN
-CHAT_ID = #通知對象或群組ID
+```
+
+設定環境變數(編輯.env 檔)  
+MONGODB_URI = #MongoDB 連線字串,可以自己調整要用哪個 DB(沒有的話會自動創建一個)  
+`如果只是單純需要輪盤不需要通知也可以不設定這兩個變數, 不要使用通知功能即可`  
+TELEGRAM_TOKEN = #TG BOT TOKEN  
+CHAT_ID = #通知對象或群組 ID
+
+```bash
 # 執行Build Process
 npm run build
 ```
 
-Step.3：使用 pm2 運行專案
+#### Step.3：使用 pm2 運行專案
+
+```bash
+# 全局安裝pm2
+npm install pm2 -g
+```
 
 > [!Note]
 > 本專案設定運行於 `8080` port, 如有需要自訂對應的 port 可以修改 package.json 裡面的"next start -p"後方數字
@@ -63,7 +72,7 @@ Step.3：使用 pm2 運行專案
 pm2 start npm --name "[自訂pm2程序名稱]" -- run start
 ```
 
-Step.4：請開始你的選擇！
+#### Step.4：請開始你的選擇！
 
 開啟任一瀏覽器, 輸入`127.0.0.1:8080`,然後... :tada:  
 成功運行會看到如下畫面:
