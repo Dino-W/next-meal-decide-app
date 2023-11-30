@@ -1,24 +1,30 @@
 import * as React from "react";
-import { alpha, styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import {
+  alpha,
+  styled,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Toolbar,
+  Typography,
+  Paper,
+  Checkbox,
+  IconButton,
+  Tooltip,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
+import {
+  Delete as DeleteIcon,
+  FilterList as FilterListIcon,
+} from "@mui/icons-material";
+import { tableCellClasses } from "@mui/material/TableCell";
 import { visuallyHidden } from "@mui/utils";
 
 interface Data {
@@ -56,10 +62,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-const style = {
-  width: 100,
-  maxWidth: 100,
-};
+
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -413,6 +416,7 @@ export default function EnhancedTable({
                             href={row.menu_url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            style={{ fontWeight: "bold" }}
                           >
                             {row.items}
                           </a>

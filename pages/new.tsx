@@ -8,7 +8,7 @@ const NewShop = () => {
     menu_url: "",
   };
 
-  return <Form formId="add-pet-form" shopForm={shopForm} />;
+  return <Form formId="add-shop-form" shopForm={shopForm} />;
 };
 
 export default NewShop;
