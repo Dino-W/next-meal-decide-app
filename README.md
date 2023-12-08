@@ -46,7 +46,8 @@ cd next-meal-decide-app
 npm install
 ```
 
-設定環境變數(編輯.env 檔)  
+#### 設定環境變數(編輯.env 檔)
+
 MONGODB_URI = #MongoDB 連線字串,可以自己調整要用哪個 DB(沒有的話會自動創建一個)  
 `如果只是單純需要輪盤不需要通知也可以不設定這兩個變數, 不要使用通知功能即可`  
 TELEGRAM_TOKEN = #TG BOT TOKEN  
@@ -99,3 +100,36 @@ docker-compose up -d
 
 > [!NOTE]
 > 因目前資料結構相對簡易，暫時沒有提供資料修改的功能 ~~(絕對不是作者偷懶)~~，如果想要修改項目內容建議直接刪除並新增一筆即可
+
+#### 其他設定補充說明
+
+**防火牆設定：**
+
+如果要使用外部 IP 連線存取(ex:XXX.XXX.XXX.XXX:8080)而非 127.0.0.1:8080，  
+則需允許 8080 Port 連線才能存取
+
+**Nginx 設定：**
+
+如果有使用 Nginx 當作代理 Server，需要將下列設定加入 config 檔裡面:
+
+```nginx
+server {
+        location / {
+          proxy_pass http://127.0.0.1:8080;
+          #其餘需要的設定
+        }
+        location /_next/public/ {
+          #改成實際路徑位置
+         alias /path/to/your/next-meal-decide-app/public;
+          #其餘需要的設定，如 Cache策略
+        }
+        location /_next/static/ {
+          #改成實際路徑位置
+         alias /path/to/your/next-meal-decide-app/.next/static/;
+         access_log off;
+          #其餘需要的設定，如 Cache策略
+        }
+}
+```
+
+`更改設定成功之後記得重新啟動Nginx!`
