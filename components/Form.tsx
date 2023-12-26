@@ -104,7 +104,6 @@ const Form = ({ formId, shopForm, forNewShop = true }: Props) => {
     });
   };
 
-  /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
     let err: Error = {};
     if (!form.region) err.region = "地區為必填";

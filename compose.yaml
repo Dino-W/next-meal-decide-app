@@ -1,0 +1,43 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo:7.0
+    restart: always
+    command: --wiredTigerCacheSizeGB 1.5
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      TZ: Asia/Taipei
+    ports:
+      - "27017:27017"
+    networks:
+      - my_custom_network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    volumes:
+      - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./database/data:/data/db
+      - ./database/backup:/backup
+  node_app:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: ${MONGODB_URI}
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      CHAT_ID: ${CHAT_ID}
+    ports:
+      - 8080:8080
+    networks:
+      - my_custom_network
+    depends_on:
+      - mongodb
+
+networks:
+  my_custom_network:
+    driver: bridge
