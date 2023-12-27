@@ -3,7 +3,7 @@ import Shop, { Shops } from "../models/Shop";
 import { GetServerSideProps } from "next";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import EnhancedTable from "./enhancedTable";
+import EnhancedTable from "../components/enhancedTable";
 import CustomSnackbar from "../components/snackbar";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
