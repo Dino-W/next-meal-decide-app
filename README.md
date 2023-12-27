@@ -45,7 +45,7 @@ cd next-meal-decide-app
 ### 方案 1: docker-compose 運行
 
 > [!IMPORTANT]
-> 請確保環境有 docker engine, 並有安裝 docker-compose https://docs.docker.com/desktop/install/windows-install/
+> 請確保環境有 docker engine, 並有安裝 docker-compose
 >
 > > [Windows](https://docs.docker.com/desktop/install/windows-install/)與[Mac](https://docs.docker.com/desktop/install/mac-install/)安裝 Docker Desktop 即可  
 > > [Linux](https://docs.docker.com/engine/install/)安裝完 docker engine 之後還要另外安裝 docker-compose
@@ -75,7 +75,7 @@ Linux 則不會有此種問題, `只需清除./database/data/內的資料再重�
 
 ### 方案 2: 使用本機 Node.js 運行
 
-> [!CAUTION]
+> [!IMPORTANT]
 > 使用這個方式環境須自備 Mongo DB 與 Node.js, 如果沒有的話安裝說明請參考:
 >
 > > [MongoDB](https://www.mongodb.com/docs/manual/installation/)安裝(依照系統需求安裝)  
@@ -84,26 +84,18 @@ Linux 則不會有此種問題, `只需清除./database/data/內的資料再重�
 安裝專案所需 dependencies 並建置專案
 
 ```bash
-# 安裝dependencies
+# 安裝dependencies與執行Build Process
 npm install
-```
-
-```bash
-# 執行Build Process
 npm run build
-```
-
-使用 pm2 運行專案
-
-```bash
-# 全局安裝pm2
-npm install pm2 -g
 ```
 
 > [!Note]
 > 本專案設定運行於 `8080` port, 如有需要自訂對應的 port 可以修改 package.json 裡面的"next start -p"後方數字
+> 使用 pm2 運行專案
 
 ```bash
+# 全局安裝pm2
+npm install pm2 -g
 # pm2執行專案
 pm2 start npm --name "[自訂pm2程序名稱]" -- run start
 ```
