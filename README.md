@@ -22,7 +22,7 @@
 
 ## 如何運行本專案
 
-#### Step.1：將專案複製至本機
+#### Step 1：將專案複製至本機
 
 ```bash
 # 透過 git clone 專案
@@ -31,7 +31,49 @@ git clone https://github.com/Dino-W/next-meal-decide-app.git
 cd next-meal-decide-app
 ```
 
-### 使用本機 Node.js 運行方式
+#### 設定環境變數(編輯.env 檔)
+
+`MONGODB_URI` = #MongoDB 連線字串  
+方案 1:docker-compose 使用(mongodb://userName:password@mongodb:27017/mealapp),  
+方案 2:本地運行使用(mongodb://127.0.0.1:27017/mealapp)  
+`如果只是單純需要輪盤不需要通知也可以不設定這兩個變數, 不要使用通知功能即可`  
+`TELEGRAM_TOKEN` = #TG BOT TOKEN  
+`CHAT_ID` = #通知對象或群組 ID
+
+下方三個變數不管選哪個方案都沒差
+
+### 方案 1: docker-compose 運行
+
+> [!IMPORTANT]
+> 請確保環境有 docker engine, 並有安裝 docker-compose https://docs.docker.com/desktop/install/windows-install/
+>
+> > [Windows](https://docs.docker.com/desktop/install/windows-install/)與[Mac](https://docs.docker.com/desktop/install/mac-install/)安裝 Docker Desktop 即可  
+> > [Linux](https://docs.docker.com/engine/install/)安裝完 docker engine 之後還要另外安裝 docker-compose
+
+在 compose 中有設定 mongodb 的 volume 資料持久存儲設定, 預設是在專案的./database 資料夾底下  
+可以依照自己的設定喜好去調整存儲位置,
+
+```bash
+sudo mkdir ./database/data #如要改成自己想要路徑請一併修改compose volume
+# 在根目錄下執行以下指令
+docker-compose up -d --build
+# --build為如果專案有變動會重新構建
+```
+
+> [!CAUTION]  
+> Windows 在重複運行時會遇到的問題
+
+Windows 如果有順利 up 過一次,會在./database/data/下面同步 db 的初始資料,  
+如果有使用 docker-compose down 結束之後再使用 docker-compose up -d --build 會出現類似如下錯誤訊息,  
+![錯誤訊息範例](./public/mongo_init_error.png "mongo error sample")
+原因應該是 mongo 官方於 [image 說明](https://hub.docker.com/_/mongo)裡的文件系統問題,  
+Linux 則不會有此種問題, `只需清除./database/data/內的資料再重新啟動即可`
+
+> WARNING (Windows & OS X): When running the Linux-based MongoDB images on Windows and OS X, the file systems used to share between the host system and the Docker container is not compatible with the memory mapped files used by MongoDB (docs.mongodb.org and related jira.mongodb.org bug). This means that it is not possible to run a MongoDB container with the data directory mapped to the host. To persist data between container restarts, we recommend using a local named volume instead (see docker volume create). Alternatively you can use the Windows-based images on Windows.
+
+---
+
+### 方案 2: 使用本機 Node.js 運行
 
 > [!CAUTION]
 > 使用這個方式環境須自備 Mongo DB 與 Node.js, 如果沒有的話安裝說明請參考:
@@ -39,26 +81,19 @@ cd next-meal-decide-app
 > > [MongoDB](https://www.mongodb.com/docs/manual/installation/)安裝(依照系統需求安裝)  
 > > [NodeJS](https://nodejs.org/en/download/)安裝(依照系統需求安裝,建議安裝 16.x 以上 LTS 版本)
 
-#### Step.2：安裝專案所需 dependencies 並建置專案
+安裝專案所需 dependencies 並建置專案
 
 ```bash
 # 安裝dependencies
 npm install
 ```
 
-#### 設定環境變數(編輯.env 檔)
-
-MONGODB_URI = #MongoDB 連線字串,可以自己調整要用哪個 DB(沒有的話會自動創建一個)  
-`如果只是單純需要輪盤不需要通知也可以不設定這兩個變數, 不要使用通知功能即可`  
-TELEGRAM_TOKEN = #TG BOT TOKEN  
-CHAT_ID = #通知對象或群組 ID
-
 ```bash
 # 執行Build Process
 npm run build
 ```
 
-#### Step.3：使用 pm2 運行專案
+使用 pm2 運行專案
 
 ```bash
 # 全局安裝pm2
@@ -73,21 +108,11 @@ npm install pm2 -g
 pm2 start npm --name "[自訂pm2程序名稱]" -- run start
 ```
 
-#### Step.4：請開始你的選擇！
+#### Step 2：請開始你的選擇！
 
 開啟任一瀏覽器, 輸入`127.0.0.1:8080`,然後... :tada:  
 成功運行會看到如下畫面:
 ![成功運行範例](./public/meal_app_init_sample.png "success sample pic")
-
-<!-- ### docker-compose 版本
-
-> [!CAUTION]
-> 請確保環境有 docker engine, 並有安裝 docker-compose (Linux 需另外安裝)
-
-```bash
-# 在根目錄下執行以下指令
-docker-compose up -d
-``` -->
 
 操作介面說明:
 

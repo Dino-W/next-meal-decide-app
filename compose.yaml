@@ -21,8 +21,8 @@ services:
       start_period: 60s
     volumes:
       - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-      - ./database/data:/data/db
-      - ./database/backup:/backup
+      - ./database/data:/data/db #可依照自己喜好修改
+      # - ./database/backup:/backup 如果有備份資料或是還原都可以放在這裡, 非必要
   node_app:
     build:
       context: .
