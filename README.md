@@ -1,6 +1,6 @@
 # 選擇障礙殺手 2.0
 
-~~因開發者 CSS 功力尚待加強~~,使用時請使用**電腦**瀏覽器並以**全螢幕**開啟
+~~因開發者 CSS 功力尚待加強~~,使用時請使用**電腦**瀏覽器並以`**全螢幕**`開啟
 
 本專案原始碼是由 Next.js 官方提供與 mongo 連接的[範例](https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose)修改
 
@@ -50,7 +50,7 @@ cd next-meal-decide-app
 > > [Windows](https://docs.docker.com/desktop/install/windows-install/)與[Mac](https://docs.docker.com/desktop/install/mac-install/)安裝 Docker Desktop 即可  
 > > [Linux](https://docs.docker.com/engine/install/)安裝完 docker engine 之後還要另外安裝 docker-compose
 
-在 compose 中有設定 mongodb 的 volume 資料持久存儲設定, 預設是在專案的./database 資料夾底下  
+在 compose 中有設定 mongodb 的 volume 資料持久存儲設定, 預設是在專案的./database/data 資料夾底下  
 可以依照自己的設定喜好去調整存儲位置,
 
 ```bash
